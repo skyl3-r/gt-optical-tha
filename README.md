@@ -1,14 +1,14 @@
 # gt-optical-tha
 
 ## How to run the app
-1. Install dependencies `npm i`
-2. Run `node app.js`
-3. Open url http://localhost:3000/users
+1. Open command terminal in the directory `gt-optical-tha`.
+2. Install dependencies with `npm i`.
+3. Run the app with `node app.js`.
 
-## Feature1: Get list of users
+## Feature 1: Get list of users
 How to use: 
-1. In browser, open http://localhost:3000/users?min=&max=&offset=&limit=&sort=
-2. Write value of the param after its `=`. If param is left out or empty, its default value will be used.
+1. In your browser, open http://localhost:3000/users?min=&max=&offset=&limit=&sort=.
+2. Write value of the param after its `=`. If a param is left out or left empty, its default value will be used.
 
 Examples: 
 - To not use any params, use url http://localhost:3000/users
@@ -21,10 +21,17 @@ Params:
 - limit: type is int, default value is null
 - sort: type is string, default value is null
 
-## Feature2: Update list of users
+## Feature 2: Update list of users
 How to use:
-1. Open command terminal in the current directory `\gt-optical-tha`.
-2. Use command `curl.exe -X POST http://localhost:3000/upload -F "file=@testUploads/test1.csv"`. The file `test1.csv` can be replaced with any other file in the folder `testUploads`.
+1. Open command terminal in the directory `gt-optical-tha`.
+2. Use command `curl.exe -X POST http://localhost:3000/upload -F "file=@testUploads/validTest.csv"`. The file `validTest.csv` can be replaced with any other file in the folder `testUploads`.
+3. You can create your own csv files in the `testUploads` folder if so desired :D
+4. Go to http://localhost:3000/users to see the updated list.
+
+Test csvs:
+- `validTest.csv`: includes rows with new and currently present names, as well as rows with negative and 0 salary; `{"success":1}` should be returned.
+- `wrongTest1.csv`: includes valid rows and a row with an extra column; `{"success":0,"error":"Row length does not match headers"}` should be returned.
+- `wrongTest2.csv`: includes valid rows and a row with non numeric salary; `{"success":0,"error":"Salary number cannot be parsed"}` should be returned.
 
 ## Dependencies
 - express
