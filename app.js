@@ -4,6 +4,9 @@ const port = 3000;
 
 const fs = require('fs');
 const csvParser = require('csv-parser');
+const os = require('os')
+const multer = require('multer')
+const upload = multer({dest: os.tmpdir()}) // store file uploaded in temp dir
 
 app.get('/', (req, res) => {
     res.send(`<a href='http://localhost:${port}/users'>Go to users page</a>`);
@@ -52,23 +55,51 @@ app.get('/users', (req, res) => {
                     return 0;
                 })
             } else if (sort == 'SALARY') {
-                result.sort((a, b) => a.salary - b.salary)
+                result.sort((a, b) => a.salary - b.salary);
             }
 
             // offset and limit for results 
             var result_cut;
             if (limit == null) {
-                result_cut = result.slice(offset)
+                result_cut = result.slice(offset);
             } else {
-                result_cut = result.slice(offset, offset + limit)
+                result_cut = result.slice(offset, offset + limit);
             }
 
             // return result
-            res.json({"results": result_cut});
+            res.status(200).json({"results": result_cut});
         })
 })
 
-app.post('/upload', (req, res) => {
+app.post('/upload', upload.single('file'), (req, res) => {
+    const file = req.file
+
+    const result = [];
+    var resped = false;
+
+    fs.createReadStream(file.path)
+    .pipe(csvParser({
+        skipLines: 1,
+        headers: ['name', 'salary'],
+        strict: true
+    }))
+    .on("data", (data) => {
+        data.salary = parseFloat(data.salary)
+        result.push(data)
+    })
+    .on("end", () => {
+        console.log(result)
+        if (!resped) {
+            resped = true;
+            res.status(200).json({"success": 1});
+        }
+    })
+    .on("error", (e) => {
+        if (!resped) {
+            resped = true;
+            res.status(400).json({"success": 0, "error": e.message});
+        }
+    })
 
 })
 
