@@ -30,7 +30,9 @@ How to use:
 - express
 - csv-parser
 - multer
+- csv-stringify
 
 ## Guides used
 - For express routing: https://expressjs.com/en/guide/routing.html
-- For reading csv file: https://blog.logrocket.com/complete-guide-csv-files-node-js/
+- For reading csv files: https://blog.logrocket.com/complete-guide-csv-files-node-js/
+- For updating csv files: https://blog.shahednasser.com/how-to-read-and-write-csv-files-using-node-js-and-express/
