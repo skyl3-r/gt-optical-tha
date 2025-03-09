@@ -1,9 +1,10 @@
 # gt-optical-tha
 
 ## How to run the app
-1. Open command terminal in the directory `gt-optical-tha`.
-2. Install dependencies with `npm i`.
-3. Run the app with `node app.js`.
+1. In your desired directory, open a terminal and clone this directory using `git clone https://github.com/skyl3-r/gt-optical-tha.git`
+2. Cd into the directory `gt-optical-tha` and open a terminal.
+3. Install dependencies with `npm i`.
+4. Run the app with `node app.js`.
 
 ## Feature 1: Get list of users
 How to use: 
@@ -25,8 +26,8 @@ Params:
 How to use:
 1. Open command terminal in the directory `gt-optical-tha`.
 2. Use command `curl.exe -X POST http://localhost:3000/upload -F "file=@testUploads/validTest.csv"`. The file `validTest.csv` can be replaced with any other file in the folder `testUploads`.
-3. You can create your own csv files in the `testUploads` folder if so desired :D
-4. Go to http://localhost:3000/users to see the updated list.
+3. You can create your own csv files in the `testUploads` folder if so desired :D, a template can be found in `forReference/templateTest.csv`.
+4. Go to http://localhost:3000/users to see the updated list. The initial seeding data can be found in `forReference/startingData.csv`.
 
 Test csvs:
 - `validTest.csv`: includes rows with new and currently present names, as well as rows with negative and 0 salary; `{"success":1}` should be returned.
