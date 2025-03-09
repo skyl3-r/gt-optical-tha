@@ -31,12 +31,40 @@ app.get('/users', (req, res) => {
             headers: ['name', 'salary']
         }))
         .on("data", (data) => {
-            // console.log(data['salary']);
-            data['salary'] = parseFloat(data['salary'])
-            result.push(data);
+            data.salary = parseFloat(data.salary)
+
+            // filter by min and max
+            if (data.salary >= min && data.salary <= max) {
+                result.push(data);
+            }
         })
         .on("end", () => {
-            res.json({"results": result});
+            // sort results
+            if (sort == 'NAME') {
+                result.sort((a, b) => {
+                    const first = a.name.toLowerCase();
+                    const second = b.name.toLowerCase();
+                    if (first < second) {
+                        return -1;
+                    } else if (first > second) {
+                        return 1;
+                    }
+                    return 0;
+                })
+            } else if (sort == 'SALARY') {
+                result.sort((a, b) => a.salary - b.salary)
+            }
+
+            // offset and limit for results 
+            var result_cut;
+            if (limit == null) {
+                result_cut = result.slice(offset)
+            } else {
+                result_cut = result.slice(offset, offset + limit)
+            }
+
+            // return result
+            res.json({"results": result_cut});
         })
 })
 
