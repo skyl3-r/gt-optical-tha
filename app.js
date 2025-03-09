@@ -105,7 +105,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
             // now save data
             resped = true;
 
-            console.log(result)
+            // console.log(result)
             updateCsv(result, (updateResp) => {
                 if (updateResp.success === "0") {
                     res.status(400).json(updateResp)
