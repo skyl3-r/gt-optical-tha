@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/skyl3-r/gt-optical-tha#readme",
   "dependencies": {
+    "csv-parser": "^3.2.0",
     "express": "^4.21.2"
   }
 }
